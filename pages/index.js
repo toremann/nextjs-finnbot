@@ -56,8 +56,7 @@ export default function Home({ data }) {
                     {" "}
                     <a
                       href={`https://www.finn.no/bap/forsale/ad.html?finnkode=${data.ad_id}`}
-                      target="_blank"
-                      rel="noreferrer"
+                      rel="noopener"
                     >
                       {data.heading}{" "}
                     </a>
