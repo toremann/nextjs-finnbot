@@ -55,19 +55,30 @@ export default function Home({ data }) {
 
             </div>
         </div>
+        <div>
         <table className={styles.table}>
-        <span>Siste annonser: </span>
+        {/* <thead>
+          <th>Annonse tekst:</th>
+          <th>Lokasjon:</th>
+          <th>Pris:</th>
+        </thead> */}
+        {/* ^^ This will give hydration error ^^ */}
           <tbody>
-            {data.docs.map((data, id, docs) => {
+            <tr>
+              <td><b>Annonse tekst:</b></td>
+              <td><b>Lokasjon:</b></td>
+              <td><b>Pris:</b></td>
+              <td><b>Timestamp:</b></td>
+            </tr>
+            {data.docs.map((data, id) => {
               return (
                 <tr key={id}>
                   <td>
-                    {" "}
                     <a
                       href={`https://www.finn.no/bap/forsale/ad.html?finnkode=${data.ad_id}`}
                       rel="noopener"
                     >
-                      {(data.heading).substring(0, 20)}...
+                      {data.heading}
                     </a>
                   </td>
                   <td>{data.location}</td>
@@ -81,6 +92,7 @@ export default function Home({ data }) {
             })}
           </tbody>
         </table>
+        </div>
       </main>
 
       <footer className={styles.footer}>

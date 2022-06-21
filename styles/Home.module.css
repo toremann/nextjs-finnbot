@@ -25,10 +25,11 @@
   padding-bottom: 12px;
   text-align: left;
   color: rgb(0, 0, 0);
+  border-collapse: collapse;
 }
 
-.table span {
-  align-items: right;
+.table head {
+  background-color: #0070f3;
 }
 
 .table tr:nth-child(even) {
