@@ -1,10 +1,11 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import { useState, useEffect } from "react";
+
+const searchQuery = "lego"
 
 const defaultEndpoint =
-  "https://www.finn.no/api/search-qf?searchkey=SEARCH_ID_BAP_COMMON&abTestKey=controlsuggestions&q=lego&sort=PUBLISHED_DESC&page=1&include_filters=false";
+  `https://www.finn.no/api/search-qf?searchkey=SEARCH_ID_BAP_COMMON&abTestKey=controlsuggestions&q=${searchQuery}&sort=PUBLISHED_DESC&page=1&include_filters=false`;
 
 export async function getServerSideProps({ req, res }) {
   res.setHeader(
@@ -26,6 +27,7 @@ export async function getServerSideProps({ req, res }) {
 export default function Home({ data }) {
   const { results = [] } = data.docs;
 
+
   const MINUTE_MS = 60000;
 
   // useEffect(() => {
@@ -46,8 +48,15 @@ export default function Home({ data }) {
       </Head>
 
       <main className={styles.main}>
-        <h3 className={styles.title}>Lego bot</h3>
-        <table>
+        <div className={styles.header}>
+          <div><h3 className={styles.title}>Auto-finn</h3></div>
+          <div>
+            <span><b>Current query:</b> {searchQuery}</span>
+
+            </div>
+        </div>
+        <table className={styles.table}>
+        <span>Siste annonser: </span>
           <tbody>
             {data.docs.map((data, id, docs) => {
               return (
@@ -58,7 +67,7 @@ export default function Home({ data }) {
                       href={`https://www.finn.no/bap/forsale/ad.html?finnkode=${data.ad_id}`}
                       rel="noopener"
                     >
-                      {data.heading}{" "}
+                      {(data.heading).substring(0, 20)}...
                     </a>
                   </td>
                   <td>{data.location}</td>
