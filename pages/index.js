@@ -28,14 +28,14 @@ export default function Home({ data }) {
 
   const MINUTE_MS = 60000;
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      console.log("Reloading");
-      location.reload();
-    }, MINUTE_MS);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     console.log("Reloading");
+  //     location.reload();
+  //   }, MINUTE_MS);
 
-    return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
-  }, []);
+  //   return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+  // }, []);
 
   return (
     <div className={styles.container}>
@@ -61,6 +61,7 @@ export default function Home({ data }) {
                       {data.heading}{" "}
                     </a>
                   </td>
+                  <td>{data.location}</td>
                   <td>
                     {JSON.stringify(data.price.amount)}{" "}
                     {JSON.stringify(data.price.currency_code)}

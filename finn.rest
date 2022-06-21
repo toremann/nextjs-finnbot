@@ -1,0 +1,1 @@
+curl -h "https://www.finn.no/api/search-qf?searchkey=SEARCH_ID_BAP_COMMON&abTestKey=controlsuggestions&q=lego&sort=PUBLISHED_DESC&page=1&include_filters=false"
