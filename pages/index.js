@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
+import { useState } from "react";
 
 const searchQuery = "lego"
 
@@ -27,6 +28,7 @@ export async function getServerSideProps({ req, res }) {
 export default function Home({ data }) {
   const { results = [] } = data.docs;
 
+  const [query, setQuery] = useState(searchQuery)
 
   const MINUTE_MS = 60000;
 
@@ -51,25 +53,22 @@ export default function Home({ data }) {
         <div className={styles.header}>
           <div><h3 className={styles.title}>Auto-finn</h3></div>
           <div>
+          <input type="text"  />
             <span><b>Current query:</b> {searchQuery}</span>
 
             </div>
         </div>
         <div>
         <table className={styles.table}>
-        {/* <thead>
+        <thead>
+          <tr>
           <th>Annonse tekst:</th>
           <th>Lokasjon:</th>
           <th>Pris:</th>
-        </thead> */}
-        {/* ^^ This will give hydration error ^^ */}
+          <th>Dato / Klokkeslett</th>
+          </tr>
+        </thead>
           <tbody>
-            <tr>
-              <td><b>Annonse tekst:</b></td>
-              <td><b>Lokasjon:</b></td>
-              <td><b>Pris:</b></td>
-              <td><b>Timestamp:</b></td>
-            </tr>
             {data.docs.map((data, id) => {
               return (
                 <tr key={id}>
