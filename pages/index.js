@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const searchQuery = "lego"
 
@@ -27,6 +27,7 @@ export async function getServerSideProps({ req, res }) {
 
 export default function Home({ data }) {
   const { results = [] } = data.docs;
+  const [time, setTime] = useState(new Date());
 
   const [query, setQuery] = useState(searchQuery)
 
@@ -40,6 +41,15 @@ export default function Home({ data }) {
 
   //   return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
   // }, []);
+
+  useEffect(() => {
+    let TimeId = setInterval(() => setTime(new Date()), 1000);
+    return () => {
+     clearInterval(TimeId);
+    };
+    });
+
+    // {new Date(time).toLocaleString("en-GB")}
 
   return (
     <div className={styles.container}>
@@ -55,7 +65,7 @@ export default function Home({ data }) {
           <div>
           <input type="text"  />
             <span><b>Current query:</b> {searchQuery}</span>
-
+            <span></span>
             </div>
         </div>
         <div>
@@ -65,7 +75,7 @@ export default function Home({ data }) {
           <th>Annonse tekst:</th>
           <th>Lokasjon:</th>
           <th>Pris:</th>
-          <th>Dato / Klokkeslett</th>
+          <th></th>
           </tr>
         </thead>
           <tbody>
