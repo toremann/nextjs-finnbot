@@ -1,23 +1,31 @@
 import styles from "../../styles/Home.module.css";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { Countdown } from "../../componenets/Countdown";
 
 function searchResults({ results, search }) {
-//   const MINUTE_MS = 60000;
+  const router = useRouter();
+    const MINUTE_MS = 60000;
 
-//   useEffect(() => {
-//     const interval = setInterval(() => {
-//       console.log("Reloading");
-//       location.reload();
-//     }, MINUTE_MS);
+    useEffect(() => {
+      const interval = setInterval(() => {
+        console.log("Reloading");
+        location.reload();
+      }, MINUTE_MS);
 
-//     return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
-//   }, []);
+      return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+    }, []);
+
   return (
     <>
       <div>
         <h1>
-          Query results for: <i>{search}</i>
+          Viser resultat for: <i>{search}</i>
         </h1>
+        <button type="button" onClick={() => router.back()}>
+          Nytt søk
+        </button>
+        <Countdown />
         <table className={styles.table}>
           <thead>
             <tr>
