@@ -14,15 +14,19 @@ export default function Home() {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.search}>
     <div><h1>Finn scraper</h1></div>
-    <div className={styles.main}>
+    <div className={styles.search__container}>
       <input
+        className={styles.search__field}
         type="text"
         placeholder="Søk torget"
         onChange={(e) => setParam(e.target.value)}
       />
-      <button type="button" onClick={handleOnClick}>
+      <button
+      className={styles.search__button}
+       type="button" 
+       onClick={handleOnClick}>
         Scrape it!
       </button>
     </div>
