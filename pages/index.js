@@ -3,17 +3,13 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { useState, useEffect } from "react";
 
-const searchQuery = "lego"
+export async function getServerSideProps(context) {
+  const { params, req, res, query } = context
+  
+  var searchQuery = "lego";
 
-const defaultEndpoint =
-  `https://www.finn.no/api/search-qf?searchkey=SEARCH_ID_BAP_COMMON&abTestKey=controlsuggestions&q=${searchQuery}&sort=PUBLISHED_DESC&page=1&include_filters=false`;
-
-export async function getServerSideProps({ req, res }) {
-  res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=10, stale-while-revalidate=59"
-  );
-
+  const defaultEndpoint = `https://www.finn.no/api/search-qf?searchkey=SEARCH_ID_BAP_COMMON&abTestKey=controlsuggestions&q=${searchQuery}&sort=PUBLISHED_DESC&page=1&include_filters=false`;
+  console.log(searchQuery);
   const r = await fetch(defaultEndpoint);
 
   const data = await r.json();
@@ -26,30 +22,17 @@ export async function getServerSideProps({ req, res }) {
 }
 
 export default function Home({ data }) {
-  const { results = [] } = data.docs;
   const [time, setTime] = useState(new Date());
 
-  const [query, setQuery] = useState(searchQuery)
-
-  const MINUTE_MS = 60000;
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     console.log("Reloading");
-  //     location.reload();
-  //   }, MINUTE_MS);
-
-  //   return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
-  // }, []);
 
   useEffect(() => {
     let TimeId = setInterval(() => setTime(new Date()), 1000);
     return () => {
-     clearInterval(TimeId);
+      clearInterval(TimeId);
     };
-    });
+  });
 
-    // {new Date(time).toLocaleString("en-GB")}
+  // {new Date(time).toLocaleString("en-GB")}
 
   return (
     <div className={styles.container}>
@@ -61,46 +44,44 @@ export default function Home({ data }) {
 
       <main className={styles.main}>
         <div className={styles.header}>
-          <div><h3 className={styles.title}>Auto-finn</h3></div>
           <div>
-          <input type="text"  />
-            <span><b>Current query:</b> {searchQuery}</span>
-            <span></span>
-            </div>
+            <h3 className={styles.title}>Auto-finn</h3>
+          </div>
+          <div>asd</div>
         </div>
         <div>
-        <table className={styles.table}>
-        <thead>
-          <tr>
-          <th>Annonse tekst:</th>
-          <th>Lokasjon:</th>
-          <th>Pris:</th>
-          <th></th>
-          </tr>
-        </thead>
-          <tbody>
-            {data.docs.map((data, id) => {
-              return (
-                <tr key={id}>
-                  <td>
-                    <a
-                      href={`https://www.finn.no/bap/forsale/ad.html?finnkode=${data.ad_id}`}
-                      rel="noopener"
-                    >
-                      {data.heading}
-                    </a>
-                  </td>
-                  <td>{data.location}</td>
-                  <td>
-                    {JSON.stringify(data.price.amount)}{" "}
-                    {JSON.stringify(data.price.currency_code)}
-                  </td>
-                  <td>{new Date(data.timestamp).toLocaleString("en-GB")}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Annonse tekst:</th>
+                <th>Lokasjon:</th>
+                <th>Pris:</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.docs.map((data, id) => {
+                return (
+                  <tr key={id}>
+                    <td>
+                      <a
+                        href={`https://www.finn.no/bap/forsale/ad.html?finnkode=${data.ad_id}`}
+                        rel="noopener"
+                      >
+                        {data.heading}
+                      </a>
+                    </td>
+                    <td>{data.location}</td>
+                    <td>
+                      {JSON.stringify(data.price.amount)}{" "}
+                      {JSON.stringify(data.price.currency_code)}
+                    </td>
+                    <td>{new Date(data.timestamp).toLocaleString("en-GB")}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       </main>
 
