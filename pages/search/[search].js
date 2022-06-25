@@ -1,7 +1,7 @@
 import styles from "../../styles/Home.module.css";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { Countdown } from "../../componenets/Countdown";
+import { Countdown } from "../../components/Countdown";
 
 function SearchResults({ results, search }) {
   const router = useRouter();
@@ -50,7 +50,7 @@ function SearchResults({ results, search }) {
                   <td>{results.location}</td>
                   <td>
                     {JSON.stringify(results.price.amount)}{" "}
-                    {JSON.stringify(results.price.currency_code)}
+                    kr
                   </td>
                   <td>{new Date(results.timestamp).toLocaleString("en-GB")}</td>
                 </tr>

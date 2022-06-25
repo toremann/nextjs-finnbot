@@ -10,6 +10,10 @@
   align-items: center;
 }
 
+.countdown {
+  margin-bottom: 1rem;
+}
+
 .results__header {
   color: #e9e9e9;
   margin: 5rem;
@@ -82,11 +86,20 @@
   text-align: left;
   color: rgb(255, 255, 255);
   border-collapse: collapse;
+  box-shadow: 0px 0px 20px 0px #04AA6D;
+  border:solid rgb(0, 0, 0) 6px;
+  border-radius:6px;
+}
+
+.table td, .table th{
+  padding: 4px;
 }
 
 .table thead {
   background-color: #000000;
   border-bottom: #f30000;
+  display: table-header-group;
+  vertical-align: middle;
 }
 
 .table tr:nth-child(even) {
@@ -131,13 +144,14 @@
   }
 }
 
-@media (max-widt: 600px) {
+@media (max-width: 600px) {
   .table {
     width: 100%;
     margin-bottom: 15px;
     overflow-y: hidden;
     -ms-overflow-style: -ms-autohiding-scrollbar;
     border: 1px solid #ddd;
-    word-wrap: break-word;
+    display: block;
+    padding-top: 0;
   }
 }
