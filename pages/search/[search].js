@@ -3,18 +3,18 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { Countdown } from "../../componenets/Countdown";
 
-function searchResults({ results, search }) {
+function SearchResults({ results, search }) {
   const router = useRouter();
-    const MINUTE_MS = 60000;
+  const MINUTE_MS = 60000;
 
-    useEffect(() => {
-      const interval = setInterval(() => {
-        console.log("Reloading");
-        location.reload();
-      }, MINUTE_MS);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("Reloading");
+      location.reload();
+    }, MINUTE_MS);
 
-      return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
-    }, []);
+    return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+  }, []);
 
   return (
     <>
@@ -63,7 +63,7 @@ function searchResults({ results, search }) {
   );
 }
 
-export default searchResults;
+export default SearchResults;
 
 export async function getServerSideProps(context) {
   const { params } = context;
