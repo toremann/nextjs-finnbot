@@ -18,11 +18,11 @@ function SearchResults({ results, search }) {
 
   return (
     <>
-      <div>
+      <div className={styles.results__header}>
         <h1>
           Viser resultat for: <i>{search}</i>
         </h1>
-        <button type="button" onClick={() => router.back()}>
+        <button className={styles.search__button} type="button" onClick={() => router.back()}>
           Nytt søk
         </button>
         <Countdown />
