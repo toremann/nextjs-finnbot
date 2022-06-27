@@ -1,5 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
+import styles from "../styles/Home.module.css";
 
 export const Countdown = () => {
     const [counter, setCounter] = useState(60);
@@ -8,6 +9,6 @@ export const Countdown = () => {
     }, [counter]);
   
     return (
-        <div>Henter ny data om: {counter === 1 ? "Henter ny data" : counter}</div>
+        <div className={styles.countdown}>Henter ny data om: <b>{counter === 1 ? "Henter ny data" : counter}</b></div>
     );
   }
