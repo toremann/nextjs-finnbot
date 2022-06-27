@@ -3,12 +3,14 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { Countdown } from "../../components/Countdown";
 import { Clock } from "./../../components/Clock";
+import Head from "next/head";
 
 function SearchResults({ results, search, serverTime }) {
   const router = useRouter();
   const MINUTE_MS = 60000;
 
   useEffect(() => {
+    const router = useRouter();
     const interval = setInterval(() => {
       console.log("Reloading");
       router.reload();
