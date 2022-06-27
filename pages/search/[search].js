@@ -2,8 +2,9 @@ import styles from "../../styles/Home.module.css";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { Countdown } from "../../components/Countdown";
+import { Clock } from './../../components/Clock';
 
-function SearchResults({ results, search }) {
+function SearchResults({ results, search, serverTime }) {
   const router = useRouter();
   const MINUTE_MS = 60000;
 
@@ -32,7 +33,7 @@ function SearchResults({ results, search }) {
               <th>Annonse tekst:</th>
               <th>Lokasjon:</th>
               <th>Pris:</th>
-              <th></th>
+              <th><Clock serverTime={serverTime} /></th>
             </tr>
           </thead>
           <tbody>
@@ -78,6 +79,7 @@ export async function getServerSideProps(context) {
     props: {
       results: data,
       search,
+      serverTime: Date.now()
     },
   };
 }
