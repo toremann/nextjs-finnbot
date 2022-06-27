@@ -2,7 +2,7 @@ import styles from "../../styles/Home.module.css";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { Countdown } from "../../components/Countdown";
-import { Clock } from './../../components/Clock';
+import { Clock } from "./../../components/Clock";
 
 function SearchResults({ results, search, serverTime }) {
   const router = useRouter();
@@ -19,46 +19,57 @@ function SearchResults({ results, search, serverTime }) {
 
   return (
     <>
-      <div className={styles.results__header}>
-        <h1>
-          Viser resultat for: <i>{search}</i>
-        </h1>
-        <button className={styles.search__button} type="button" onClick={() => router.back()}>
-          Nytt søk
-        </button>
-        <Countdown />
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>Annonse tekst:</th>
-              <th>Lokasjon:</th>
-              <th>Pris:</th>
-              <th><Clock serverTime={serverTime} /></th>
-            </tr>
-          </thead>
-          <tbody>
-            {results.docs.map((results, id) => {
-              return (
-                <tr key={id}>
-                  <td>
-                    <a
-                      href={`https://www.finn.no/bap/forsale/ad.html?finnkode=${results.ad_id}`}
-                      rel="noopener"
-                    >
-                      {results.heading}
-                    </a>
-                  </td>
-                  <td>{results.location}</td>
-                  <td>
-                    {JSON.stringify(results.price.amount)}{" "}
-                    kr
-                  </td>
-                  <td>{new Date(results.timestamp).toLocaleString("en-GB")}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+      <div className={styles.container}>
+        <Head>
+          <title>Beep boop im a robot</title>
+          <meta name="Im some meta name" content="This page has some results" />
+        </Head>
+        <div className={styles.results__header}>
+          <h1>
+            Viser resultat for: <i>{search}</i>
+          </h1>
+          <button
+            className={styles.search__button}
+            type="button"
+            onClick={() => router.back()}
+          >
+            Nytt søk
+          </button>
+          <Countdown />
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Annonse tekst:</th>
+                <th>Lokasjon:</th>
+                <th>Pris:</th>
+                <th>
+                  <Clock serverTime={serverTime} />
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {results.docs.map((results, id) => {
+                return (
+                  <tr key={id}>
+                    <td>
+                      <a
+                        href={`https://www.finn.no/bap/forsale/ad.html?finnkode=${results.ad_id}`}
+                        rel="noopener"
+                      >
+                        {results.heading}
+                      </a>
+                    </td>
+                    <td>{results.location}</td>
+                    <td>{JSON.stringify(results.price.amount)} kr</td>
+                    <td>
+                      {new Date(results.timestamp).toLocaleString("en-GB")}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     </>
   );
@@ -79,7 +90,7 @@ export async function getServerSideProps(context) {
     props: {
       results: data,
       search,
-      serverTime: Date.now()
+      serverTime: Date.now(),
     },
   };
 }
