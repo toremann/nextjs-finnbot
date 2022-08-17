@@ -18,6 +18,8 @@ function SearchResults({ results, search, serverTime }) {
     return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
   }, []);
 
+  console.log(results);
+
   return (
     <>
       <div className={styles.container}>
@@ -49,25 +51,27 @@ function SearchResults({ results, search, serverTime }) {
               </tr>
             </thead>
             <tbody>
-              {results.docs.map((results, id) => {
-                return (
-                  <tr key={id}>
-                    <td>
-                      <a
-                        href={`https://www.finn.no/bap/forsale/ad.html?finnkode=${results.ad_id}`}
-                        rel="noopener"
-                      >
-                        {results.heading}
-                      </a>
-                    </td>
-                    <td>{results.location}</td>
-                    <td>{JSON.stringify(results.price.amount)} kr</td>
-                    <td>
-                      {new Date(results.timestamp).toLocaleString("en-GB")}
-                    </td>
-                  </tr>
-                );
-              })}
+              {results.docs
+                .sort((a, b) => b.timestamp - a.timestamp)
+                .map((results, id) => {
+                  return (
+                    <tr key={id}>
+                      <td>
+                        <a
+                          href={`https://www.finn.no/bap/forsale/ad.html?finnkode=${results.ad_id}`}
+                          rel="noopener"
+                        >
+                          {results.heading}
+                        </a>
+                      </td>
+                      <td>{results.location}</td>
+                      <td>{JSON.stringify(results.price.amount)} kr</td>
+                      <td>
+                        {new Date(results.timestamp).toLocaleString("en-GB")}
+                      </td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
         </div>
@@ -82,7 +86,7 @@ export async function getServerSideProps(context) {
   const { params } = context;
   const { search } = params;
   const response = await fetch(
-    `https://www.finn.no/api/search-qf?searchkey=SEARCH_ID_BAP_COMMON&abTestKey=controlsuggestions&q=${search}&sort=PUBLISHED_DESC&page=1&include_filters=false`
+    `https://www.finn.no/api/search-qf?searchkey=SEARCH_ID_BAP_COMMON&q=${search}&sort=RELEVANCE&page=2&vertical=bap`
   );
 
   const data = await response.json();
