@@ -86,7 +86,7 @@ export async function getServerSideProps(context) {
   const { params } = context;
   const { search } = params;
   const response = await fetch(
-    `https://www.finn.no/api/search-qf?searchkey=SEARCH_ID_BAP_COMMON&q=${search}&sort=RELEVANCE&page=2&vertical=bap`
+    `https://www.finn.no/api/search-qf?searchkey=SEARCH_ID_BAP_COMMON&q=${search}&sort=PUBLISHED_DESC&page=1&vertical=bap`
   );
 
   const data = await response.json();
